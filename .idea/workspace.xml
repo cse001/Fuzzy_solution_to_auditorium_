@@ -30,8 +30,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fuzzy/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="154" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
+            <state relative-caret-position="161">
+              <caret line="159" column="93" lean-forward="false" selection-start-line="159" selection-start-column="93" selection-end-line="159" selection-end-column="93" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -405,7 +405,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510404805054</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="fuzzy_tower_coords_done">
+      <created>1510406481172</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1510406481172</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -450,7 +457,8 @@
     <MESSAGE value="graph-changes1" />
     <MESSAGE value="segment_formation_done_input" />
     <MESSAGE value="height_of_fuzzy_tower_done" />
-    <option name="LAST_COMMIT_MESSAGE" value="height_of_fuzzy_tower_done" />
+    <MESSAGE value="fuzzy_tower_coords_done" />
+    <option name="LAST_COMMIT_MESSAGE" value="fuzzy_tower_coords_done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -485,8 +493,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fuzzy/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="154" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="155" selection-end-column="0" />
+        <state relative-caret-position="161">
+          <caret line="159" column="93" lean-forward="false" selection-start-line="159" selection-start-column="93" selection-end-line="159" selection-end-column="93" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>

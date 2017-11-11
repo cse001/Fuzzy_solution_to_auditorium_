@@ -1,7 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import scipy.integrate as integrate
-from matplotlib import collections
 
 
 class Entry:
@@ -11,6 +9,7 @@ class Entry:
         self.m = m
         self.c = c
         self.region = region
+
 
 audience_edges = np.array([[[0, 0], [10, 1], [30, 1], [40, 1]],
                            [[30, 0], [40, 1], [60, 1], [70, 0]],
@@ -151,5 +150,17 @@ fuzzy_tower_coords=np.array([
     [[33,0],[49.5,1],[66,0]],
     [[66,0],[82.5,1],[99,0]],
 ])
+
+m_c_segment=[]
+for j in range(len(fuzzy_tower_coords)):
+    for k in range(len(fuzzy_tower_coords[i])):
+        slope = ((fuzzy_tower_coords[j][k + 1][1] - fuzzy_tower_coords[j][k][1]) * 1.0) / (
+            (fuzzy_tower_coords[j][k + 1][0] - fuzzy_tower_coords[j][k][0]))
+        intercept = fuzzy_tower_coords[j][k + 1][1] - slope * fuzzy_tower_coords[j][k + 1][0]
+        m_c_segment.append(Entry(fuzzy_tower_coords[j][k][0],fuzzy_tower_coords[j][k + 1][0],slope,intercept,i))
+
+
+
+
 
 
