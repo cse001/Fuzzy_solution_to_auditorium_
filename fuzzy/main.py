@@ -18,21 +18,35 @@ noise_edges = np.array([
     [[70, 0], [100, 1]]
 ])
 
-# print (audience_edges)
-for i in range(audience_edges.size):
-    # print(i)
-    for j in range(audience_edges[i].size):
-        print("{}:{} {}:{} ".format(i, audience_edges.size, j, audience_edges[i].size), end="")
-        for k in range(audience_edges[i][j].size):
-            print("{} ".format(audience_edges[i][j][k]), end="")
-        print("")
+plt.figure(1)   
+for i in range(len(audience_edges)):  #iterator for different fuzzy sets
+        plt.subplot(122)
+        x_vals=[]
+        y_vals=[]
+        for j in range(len(audience_edges[i])):                 
+                x_vals.append(audience_edges[i][j][0])
+                y_vals.append(audience_edges[i][j][1])
+        plt.plot(x_vals,y_vals)
 
-        # plt.figure(1)
-        # for i in range(audience_edges.size):  #iterator for different fuzzy sets
-        # 	plt.subplot(211+i)
-        # 	x_vals=[]
-        # 	y_vals=[]
-        # 	for j in range(audience_edges[i].size):
-        # 		x_vals.append(audience_edges[0][i][j][0])
-        # 		y_vals.append(audience_edges[0][i][j][1])
-        # 	plt.plot(x,y)
+plt.figure(2)
+for i in range(len(fan_edges)):  #iterator for different fuzzy sets
+        plt.subplot(122)
+        x_vals=[]
+        y_vals=[]
+        for j in range(len(fan_edges[i])):                 
+                x_vals.append(fan_edges[i][j][0])
+                y_vals.append(fan_edges[i][j][1])
+        plt.plot(x_vals,y_vals)
+
+
+plt.figure(3)
+for i in range(len(noise_edges)):  #iterator for different fuzzy sets
+        plt.subplot(133)
+        x_vals=[]
+        y_vals=[]
+        for j in range(len(noise_edges[i])):                 
+                x_vals.append(noise_edges[i][j][0])
+                y_vals.append(noise_edges[i][j][1])
+        plt.plot(x_vals,y_vals)
+
+plt.show()        
