@@ -32,38 +32,37 @@ plt.axis([0, 105, 0, 1.2])
 
 plt.figure(1)
 for i in range(len(audience_edges)):  #iterator for different fuzzy sets
-    plt.subplot(111)
-    plt.ylim(0, 5)
-
-    x_vals=[]
-    y_vals=[]
-    for j in range(len(audience_edges[i])):
-        x_vals.append(audience_edges[i][j][0])
-        y_vals.append(audience_edges[i][j][1])
-    plt.plot(x_vals,y_vals)
+        plt.subplot(111)
+        plt.ylim(0,5)
+        x_vals=[]
+        y_vals=[]
+        for j in range(len(audience_edges[i])):
+                x_vals.append(audience_edges[i][j][0])
+                y_vals.append(audience_edges[i][j][1])
+        plt.plot(x_vals,y_vals)
 
 plt.figure(2)
 for i in range(len(fan_edges)):  #iterator for different fuzzy sets
-    plt.subplot(111)
-    plt.ylim(0, 5)
-    x_vals=[]
-    y_vals=[]
-    for j in range(len(fan_edges[i])):
-        x_vals.append(fan_edges[i][j][0])
-        y_vals.append(fan_edges[i][j][1])
-    plt.plot(x_vals,y_vals)
+        plt.subplot(111)
+        plt.ylim(0, 5)
+        x_vals=[]
+        y_vals=[]
+        for j in range(len(fan_edges[i])):
+                x_vals.append(fan_edges[i][j][0])
+                y_vals.append(fan_edges[i][j][1])
+        plt.plot(x_vals,y_vals)
 
 
 plt.figure(3)
 for i in range(len(noise_edges)):  #iterator for different fuzzy sets
-    plt.subplot(111)
-    plt.ylim(0, 5)
-    x_vals=[]
-    y_vals=[]
-    for j in range(len(noise_edges[i])):
-        x_vals.append(noise_edges[i][j][0])
-        y_vals.append(noise_edges[i][j][1])
-    plt.plot(x_vals,y_vals)
+        plt.subplot(111)
+        plt.ylim(0, 5)
+        x_vals=[]
+        y_vals=[]
+        for j in range(len(noise_edges[i])):
+                x_vals.append(noise_edges[i][j][0])
+                y_vals.append(noise_edges[i][j][1])
+        plt.plot(x_vals,y_vals)
 
 # plt.show()
 
@@ -95,10 +94,10 @@ for i in range(3):
     for j in range(len(temp)):
         for k in range(len(temp[j]) - 1):
             slope = ((temp[j][k + 1][1] - temp[j][k][1]) * 1.0) / (
-                (temp[j][k+1][0] - temp[j][k][0]))
+            (temp[j][k+1][0] - temp[j][k][0]))
             intercept = temp[j][k + 1][1] - slope * temp[j][k + 1][0]
             seg_details.append(Entry(temp[j][k][0], temp[j][k + 1][0], slope, intercept,j))
-    if i == 0:
+    if (i == 0):
         audience_line_segment=seg_details[:]
     elif i == 1:
         fan_line_segment = seg_details[:]
@@ -143,55 +142,25 @@ for q in range(queries):
                 height_of_op_tower[give_op_region[i][j][k]]=max(height_of_op_tower[give_op_region[i][j][k]],min(fuzzy_set_of_audience[i],fuzzy_set_of_fans[j],fuzzy_set_of_noise[k]))
 
 
-                # Cutting height obtained
-                #Calculating centroid height
+    # Cutting height obtained
+    #Calculating centroid height
 
-    fuzzy_tower_coords = np.array([
-        [[0, 0], [16.5, 1], [33, 0]],
-        [[33, 0], [49.5, 1], [66, 0]],
-        [[66, 0], [82.5, 1], [99, 0]],
-    ])
+fuzzy_tower_coords=np.array([
+    [[0,0],[16.5,1],[33,0]],
+    [[33,0],[49.5,1],[66,0]],
+    [[66,0],[82.5,1],[99,0]],
+])
 
-    m_c_segment = []
-    for j in range(len(fuzzy_tower_coords)):
-        for k in range(len(fuzzy_tower_coords[i])):
-            slope = ((fuzzy_tower_coords[j][k + 1][1] - fuzzy_tower_coords[j][k][1]) * 1.0) / (
-                (fuzzy_tower_coords[j][k + 1][0] - fuzzy_tower_coords[j][k][0]))
-            intercept = fuzzy_tower_coords[j][k + 1][1] - slope * fuzzy_tower_coords[j][k + 1][0]
-            m_c_segment.append(Entry(fuzzy_tower_coords[j][k][0], fuzzy_tower_coords[j][k + 1][0], slope, intercept, i))
+m_c_segment=[]
+for j in range(len(fuzzy_tower_coords)):
+    for k in range(len(fuzzy_tower_coords[i])):
+        slope = ((fuzzy_tower_coords[j][k + 1][1] - fuzzy_tower_coords[j][k][1]) * 1.0) / (
+            (fuzzy_tower_coords[j][k + 1][0] - fuzzy_tower_coords[j][k][0]))
+        intercept = fuzzy_tower_coords[j][k + 1][1] - slope * fuzzy_tower_coords[j][k + 1][0]
+        m_c_segment.append(Entry(fuzzy_tower_coords[j][k][0],fuzzy_tower_coords[j][k + 1][0],slope,intercept,i))
 
-    numerator = 0
-    denominator = 0
 
-    x_coords = []
 
-    base_diff = 33
-    base = [33, 66, 99]
 
-    for pair in m_c_segment:
 
-        x = (pair.region - pair.c)/pair.m
-        x_coords.append(x)
-
-        if x > pair.x1:
-            numerator += (pair.m / 3.0) * (x ** 3 - pair.x1 ** 3) + (pair.c/2.0)*(x ** 2 - pair.x1 ** 2)
-        else:
-            numerator += (pair.m / 3.0) * (pair.x2 ** 3 - pair.x ** 3) + (pair.c / 2.0) * (pair.x2 ** 2 - pair.x ** 2)
-
-    for i in range(3):
-        numerator += height_of_op_tower[i] * (x_coords[2 * i + 1] - x_coords[i])
-
-    for i in range(3):
-        denominator += height_of_op_tower[i] * ((x_coords[2 * i + 1] - x_coords[i]) + base_diff) / 2.0
-
-    centroid = numerator/denominator
-
-    print(centroid)
-
-    if centroid < base[0]:
-        print("Low")
-    elif centroid < base[1]:
-        print("Moderate")
-    elif centroid < base[2]:
-        print("High")
 

@@ -146,19 +146,8 @@ for q in range(queries):
                 # Cutting height obtained
                 #Calculating centroid height
 
-    fuzzy_tower_coords = np.array([
-        [[0, 0], [16.5, 1], [33, 0]],
-        [[33, 0], [49.5, 1], [66, 0]],
-        [[66, 0], [82.5, 1], [99, 0]],
-    ])
-
+    fuzzy_tower_coords = []
     m_c_segment = []
-    for j in range(len(fuzzy_tower_coords)):
-        for k in range(len(fuzzy_tower_coords[i])):
-            slope = ((fuzzy_tower_coords[j][k + 1][1] - fuzzy_tower_coords[j][k][1]) * 1.0) / (
-                (fuzzy_tower_coords[j][k + 1][0] - fuzzy_tower_coords[j][k][0]))
-            intercept = fuzzy_tower_coords[j][k + 1][1] - slope * fuzzy_tower_coords[j][k + 1][0]
-            m_c_segment.append(Entry(fuzzy_tower_coords[j][k][0], fuzzy_tower_coords[j][k + 1][0], slope, intercept, i))
 
     numerator = 0
     denominator = 0
@@ -188,10 +177,31 @@ for q in range(queries):
 
     print(centroid)
 
+<<<<<<< HEAD
     if centroid < base[0]:
         print("Low")
     elif centroid < base[1]:
         print("Moderate")
     elif centroid < base[2]:
         print("High")
+=======
+fuzzy_tower_coords=np.array([
+    [[0,0],[16.5,1],[33,0]],
+    [[33,0],[49.5,1],[66,0]],
+    [[66,0],[82.5,1],[99,0]],
+])
 
+m_c_segment=[]
+for j in range(len(fuzzy_tower_coords)):
+    for k in range(len(fuzzy_tower_coords[i])):
+        slope = ((fuzzy_tower_coords[j][k + 1][1] - fuzzy_tower_coords[j][k][1]) * 1.0) / (
+            (fuzzy_tower_coords[j][k + 1][0] - fuzzy_tower_coords[j][k][0]))
+        intercept = fuzzy_tower_coords[j][k + 1][1] - slope * fuzzy_tower_coords[j][k + 1][0]
+        m_c_segment.append(Entry(fuzzy_tower_coords[j][k][0],fuzzy_tower_coords[j][k + 1][0],slope,intercept,i))
+
+
+
+
+
+
+>>>>>>> origin
