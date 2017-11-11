@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import scipy.integrate as integrate
 from matplotlib import collections
 
 
@@ -144,4 +145,11 @@ for q in range(queries):
 
     # Cutting height obtained
     #Calculating centroid height
+
+fuzzy_tower_coords=np.array([
+    [[0,0],[16.5,1],[33,0]],
+    [[33,0],[49.5,1],[66,0]],
+    [[66,0],[82.5,1],[99,0]],
+])
+
 
