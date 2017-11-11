@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e22f5c2f-eca3-47ce-afe3-673e3e06d5b5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fuzzy/main.py" afterPath="$PROJECT_DIR$/fuzzy/main.py" />
     </list>
     <ignored path="Fuzzy_solution_to_auditorium_.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,8 +29,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fuzzy/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="159" column="93" lean-forward="false" selection-start-line="159" selection-start-column="93" selection-end-line="159" selection-end-column="93" />
+            <state relative-caret-position="233">
+              <caret line="145" column="18" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -412,7 +411,14 @@
       <option name="project" value="LOCAL" />
       <updated>1510406481172</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="m_c_segments_done_for_point_of_intersection">
+      <created>1510408438689</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1510408438689</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -458,7 +464,8 @@
     <MESSAGE value="segment_formation_done_input" />
     <MESSAGE value="height_of_fuzzy_tower_done" />
     <MESSAGE value="fuzzy_tower_coords_done" />
-    <option name="LAST_COMMIT_MESSAGE" value="fuzzy_tower_coords_done" />
+    <MESSAGE value="m_c_segments_done_for_point_of_intersection" />
+    <option name="LAST_COMMIT_MESSAGE" value="m_c_segments_done_for_point_of_intersection" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -493,8 +500,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fuzzy/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="159" column="93" lean-forward="false" selection-start-line="159" selection-start-column="93" selection-end-line="159" selection-end-column="93" />
+        <state relative-caret-position="233">
+          <caret line="145" column="18" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
