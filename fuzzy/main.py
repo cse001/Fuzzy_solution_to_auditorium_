@@ -199,35 +199,35 @@ for q in range(queries):
     base_diff = 33
     base = [33, 66, 99]
 
+    odd=1
     for pair in m_c_segment:
 
         x = (height_of_op_tower[pair.region] - pair.c)/pair.m
         x_coords.append(x)
 
-    # for i in x_coords:
-    #     print("{} ".format(i))
-
-        if x > pair.x1:
-            numerator += (pair.m / 3.0) * (x ** 3 - pair.x1 ** 3) + (pair.c/2.0)*(x ** 2 - pair.x1 ** 2)
-            denominator +=(pair.m / 2.0) * (x ** 2 - pair.x1 ** 2) + (pair.c)*(x  - pair.x1)
+        if(odd==1):
+            numerator += ((pair.m / 3.0) * (x ** 3 - pair.x1 ** 3)) + ((pair.c / 2.0) * (x ** 2 - pair.x1 ** 2))
+            denominator += ((pair.m / 2.0) * (x ** 2 - pair.x1 ** 2)) + ((pair.c) * (x - pair.x1))
         else:
-            numerator += (pair.m / 3.0) * (pair.x2 ** 3 - x ** 3) + (pair.c / 2.0) * (pair.x2 ** 2 - x ** 2)
-            denominator += (pair.m / 2.0) * (pair.x2 ** 2 - x ** 2) + (pair.c) * (pair.x2 - x)
-
+            numerator += ((pair.m / 3.0) * (pair.x2 ** 3 - x ** 3)) + ((pair.c / 2.0) * (pair.x2 ** 2 - x ** 2))
+            denominator += ((pair.m / 2.0) * (pair.x2 ** 2 - x ** 2)) + ((pair.c) * (pair.x2 - x))
+        # print("{} {} {} {} {}".format(pair.x1, x, pair.x2,numerator,denominator))
+        odd=1-odd
     # print(numerator)
     for i in range(3):
-        numerator += height_of_op_tower[i] * (((x_coords[2 * i + 1]**2) - (x_coords[i]**2))/2.0)
-        denominator += height_of_op_tower[i] * (x_coords[2 * i + 1] - x_coords[i])
+        numerator += height_of_op_tower[i] * (((x_coords[2 * i + 1]**2) - (x_coords[2*i]**2))/2.0)
+        denominator += height_of_op_tower[i] * (x_coords[2 * i + 1] - x_coords[2*i])
 
     print("{} {}".format(numerator,denominator))
-    centroid = numerator/denominator
+    centroid = (numerator*1.0)/denominator
 
-    print(centroid)
 
-    if centroid < base[0] :
-        print("Low")
-    elif centroid < base[1] :
-        print("Moderate")
+
+    if centroid < base[0]:
+        print("Low",end="")
+    elif centroid < base[1]:
+        print("Moderate",end="")
     else:
-        print("High")
+        print("High",end="")
 
+    print(" {:.2f} {} {} {}".format(centroid,audience,no_of_fans,noise_value))
