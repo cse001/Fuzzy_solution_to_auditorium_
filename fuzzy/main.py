@@ -19,6 +19,12 @@ class Entry:
         return ret
 
 
+# class FinalGraphCords:
+#     def __init__(self, x_cord, y_cord):
+#         self.x = x_cord
+#         self.y = y_cord
+
+
 audience_edges = np.array([[[0, 0], [10, 1], [30, 1], [40, 0]],
                            [[30, 0], [40, 1], [60, 1], [70, 0]],
                            [[60, 0], [70, 1], [90, 1], [100, 0]]])
@@ -73,8 +79,7 @@ for i in range(len(noise_edges)):  #iterator for different fuzzy sets
         y_vals.append(noise_edges[i][j][1])
     plt.plot(x_vals,y_vals)
 
-# plt.show()
-
+plt.show()
 
 # give_op_region=np.dtype(np.int32)
 a_temp=np.ndarray(27).reshape(3,3,3)
@@ -119,12 +124,16 @@ for i in range(3):
 # print(fan_line_segment)
 # print(noise_line_segment)
 
+print("Enter the number of queries : ")
 queries=int(input().strip())
 
 for q in range(queries):
 
+    print("Enter the head count of audience : ")
     audience = int(input())
+    print("Enter the number of fans available in the auditorium : ")
     no_of_fans = int(input())
+    print("Enter the noise value")
     noise_value = int(input())
 
     fuzzy_set_of_audience = [0, 0, 0]
@@ -199,18 +208,35 @@ for q in range(queries):
     base_diff = 33
     base = [33, 66, 99]
 
-    odd=1
+    final_graph_x_cords = []
+    final_graph_y_cords = []
+
+    odd = 1
     for pair in m_c_segment:
 
         x = (height_of_op_tower[pair.region] - pair.c)/pair.m
         x_coords.append(x)
 
-        if(odd==1):
+        if odd == 1:
             numerator += ((pair.m / 3.0) * (x ** 3 - pair.x1 ** 3)) + ((pair.c / 2.0) * (x ** 2 - pair.x1 ** 2))
             denominator += ((pair.m / 2.0) * (x ** 2 - pair.x1 ** 2)) + ((pair.c) * (x - pair.x1))
+
+            # for drawing final graph
+            final_graph_x_cords.append(pair.x1)
+            final_graph_x_cords.append(x)
+            final_graph_y_cords.append(0)
+            final_graph_y_cords.append(height_of_op_tower[pair.region])
+
         else:
             numerator += ((pair.m / 3.0) * (pair.x2 ** 3 - x ** 3)) + ((pair.c / 2.0) * (pair.x2 ** 2 - x ** 2))
             denominator += ((pair.m / 2.0) * (pair.x2 ** 2 - x ** 2)) + ((pair.c) * (pair.x2 - x))
+
+            # for drawing final graph
+            final_graph_x_cords.append(x)
+            final_graph_x_cords.append(pair.x2)
+            final_graph_y_cords.append(height_of_op_tower[pair.region])
+            final_graph_y_cords.append(0)
+
         # print("{} {} {} {} {}".format(pair.x1, x, pair.x2,numerator,denominator))
         odd=1-odd
     # print(numerator)
@@ -221,13 +247,17 @@ for q in range(queries):
     print("{} {}".format(numerator,denominator))
     centroid = (numerator*1.0)/denominator
 
-
+    print("heights of tower :", height_of_op_tower)
 
     if centroid < base[0]:
-        print("Low",end="")
+        print("Answer : Low, ",end="")
     elif centroid < base[1]:
-        print("Moderate",end="")
+        print("Answer : Moderate, ",end="")
     else:
-        print("High",end="")
+        print("Answer : High, ",end="")
 
-    print(" {:.2f} {} {} {}".format(centroid,audience,no_of_fans,noise_value))
+    print(" Centroid : {:.2f}, Audience : {}, No_of_fans : {}, Noise value : {}".format(centroid,audience,no_of_fans,noise_value))
+
+    plt.plot(final_graph_x_cords, final_graph_y_cords)
+    plt.ylim(0, 5)
+    plt.show()
