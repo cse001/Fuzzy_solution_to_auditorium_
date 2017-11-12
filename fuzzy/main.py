@@ -209,15 +209,15 @@ for q in range(queries):
 
         if x > pair.x1:
             numerator += (pair.m / 3.0) * (x ** 3 - pair.x1 ** 3) + (pair.c/2.0)*(x ** 2 - pair.x1 ** 2)
+            denominator +=(pair.m / 2.0) * (x ** 2 - pair.x1 ** 2) + (pair.c)*(x  - pair.x1)
         else:
             numerator += (pair.m / 3.0) * (pair.x2 ** 3 - x ** 3) + (pair.c / 2.0) * (pair.x2 ** 2 - x ** 2)
+            denominator += (pair.m / 2.0) * (pair.x2 ** 2 - x ** 2) + (pair.c) * (pair.x2 - x)
 
     # print(numerator)
     for i in range(3):
-        numerator += height_of_op_tower[i] * (x_coords[2 * i + 1] - x_coords[i])
-
-    for i in range(3):
-        denominator +=( height_of_op_tower[i] * ((x_coords[2 * i + 1] - x_coords[i]) + base_diff) )/ 2.0
+        numerator += height_of_op_tower[i] * (((x_coords[2 * i + 1]**2) - (x_coords[i]**2))/2.0)
+        denominator += height_of_op_tower[i] * (x_coords[2 * i + 1] - x_coords[i])
 
     print("{} {}".format(numerator,denominator))
     centroid = numerator/denominator
