@@ -136,7 +136,7 @@ for q in range(queries):
 
     #All the fuzzy sets are available
 
-    height_of_op_tower=np.zeros(3)
+    height_of_op_tower = [0, 0, 0]
     for i in range(3):
         for j in range(3):
             for k in range(3):
