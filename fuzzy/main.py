@@ -10,19 +10,27 @@ class Entry:
         self.c = c
         self.region = region
 
+    def __str__(self):
+        ret="{} {} {} {} {}\n".format(self.x1,self.x2,self.m,self.c,self.region)
+        return ret
 
-audience_edges = np.array([[[0, 0], [10, 1], [30, 1], [40, 1]],
+    def __repr__(self):
+        ret="{} {} {} {} {}\n".format(self.x1,self.x2,self.m,self.c,self.region)
+        return ret
+
+
+audience_edges = np.array([[[0, 0], [10, 1], [30, 1], [40, 0]],
                            [[30, 0], [40, 1], [60, 1], [70, 0]],
                            [[60, 0], [70, 1], [90, 1], [100, 0]]])
 
 fan_edges = np.array([
-    [[1, 1], [30, 0]],
+    [[0, 1], [30, 0]],
     [[20, 0], [40, 1], [60, 1], [80, 0]],
     [[70, 0], [100, 1]]
 ])
 
 noise_edges = np.array([
-    [[1, 1], [30, 0]],
+    [[0, 1], [30, 0]],
     [[20, 0], [40, 1], [60, 1], [80, 0]],
     [[70, 0], [100, 1]]
 ])
@@ -68,7 +76,9 @@ for i in range(len(noise_edges)):  #iterator for different fuzzy sets
 # plt.show()
 
 
-give_op_region=np.empty(27).reshape(3, 3, 3)
+# give_op_region=np.dtype(np.int32)
+a_temp=np.ndarray(27).reshape(3,3,3)
+give_op_region=np.zeros_like(a_temp, dtype=np.int32)
 for i in range(3):
     for j in range(3):
         for k in range(3):
@@ -86,11 +96,11 @@ noise_line_segment = []
 for i in range(3):
     temp=[]
     if(i==0):
-        temp=audience_edges
+        temp=audience_edges[:]
     elif i==1:
-        temp=fan_edges
+        temp=fan_edges[:]
     else:
-        temp=noise_edges
+        temp=noise_edges[:]
     seg_details = []
     for j in range(len(temp)):
         for k in range(len(temp[j]) - 1):
@@ -100,10 +110,14 @@ for i in range(3):
             seg_details.append(Entry(temp[j][k][0], temp[j][k + 1][0], slope, intercept,j))
     if i == 0:
         audience_line_segment=seg_details[:]
-    elif i == 1:
+    elif i== 1:
         fan_line_segment = seg_details[:]
     else:
         noise_line_segment = seg_details[:]
+
+# print(audience_line_segment)
+# print(fan_line_segment)
+# print(noise_line_segment)
 
 queries=int(input().strip())
 
@@ -120,19 +134,31 @@ for q in range(queries):
             membership_value = audience*audi.m + audi.c
             fuzzy_set_of_audience[audi.region] = membership_value
 
+    # print(fuzzy_set_of_audience)
+
     fuzzy_set_of_fans = [0, 0, 0]
 
     for fan in fan_line_segment:
         if fan.x1 <= no_of_fans <= fan.x2:
+            # print("In fan {}".format(no_of_fans))
+            # print(fan)
             membership_value = no_of_fans*fan.m + fan.c
-            fuzzy_set_of_audience[fan.region] = membership_value
+            # print(membership_value)
+            fuzzy_set_of_fans[fan.region] = membership_value
+
+    # print(fuzzy_set_of_fans)
 
     fuzzy_set_of_noise = [0, 0, 0]
 
     for noise in noise_line_segment:
         if noise.x1 <= noise_value <= noise.x2:
+            # print("In noise {}".format(noise_value))
+            # print(noise)
             membership_value = noise_value*noise.m + noise.c
-            fuzzy_set_of_audience[noise.region] = membership_value
+            # print(membership_value)
+            fuzzy_set_of_noise[noise.region] = membership_value
+
+    # print(fuzzy_set_of_noise)
 
     #All the fuzzy sets are available
 
@@ -145,7 +171,10 @@ for q in range(queries):
 
                 # Cutting height obtained
                 #Calculating centroid height
-
+    ################# height of the tower is zero which is a problem ######
+    # for i in height_of_op_tower:
+    #     print("{} ".format(i))
+    # print("")
     fuzzy_tower_coords = np.array([
         [[0, 0], [16.5, 1], [33, 0]],
         [[33, 0], [49.5, 1], [66, 0]],
@@ -154,11 +183,13 @@ for q in range(queries):
 
     m_c_segment = []
     for j in range(len(fuzzy_tower_coords)):
-        for k in range(len(fuzzy_tower_coords[i])):
+        for k in range(len(fuzzy_tower_coords[j])-1):
             slope = ((fuzzy_tower_coords[j][k + 1][1] - fuzzy_tower_coords[j][k][1]) * 1.0) / (
                 (fuzzy_tower_coords[j][k + 1][0] - fuzzy_tower_coords[j][k][0]))
             intercept = fuzzy_tower_coords[j][k + 1][1] - slope * fuzzy_tower_coords[j][k + 1][0]
-            m_c_segment.append(Entry(fuzzy_tower_coords[j][k][0], fuzzy_tower_coords[j][k + 1][0], slope, intercept, i))
+            m_c_segment.append(Entry(fuzzy_tower_coords[j][k][0], fuzzy_tower_coords[j][k + 1][0], slope, intercept, j))
+
+    # print(m_c_segment)
 
     numerator = 0
     denominator = 0
@@ -170,28 +201,33 @@ for q in range(queries):
 
     for pair in m_c_segment:
 
-        x = (pair.region - pair.c)/pair.m
+        x = (height_of_op_tower[pair.region] - pair.c)/pair.m
         x_coords.append(x)
+
+    # for i in x_coords:
+    #     print("{} ".format(i))
 
         if x > pair.x1:
             numerator += (pair.m / 3.0) * (x ** 3 - pair.x1 ** 3) + (pair.c/2.0)*(x ** 2 - pair.x1 ** 2)
         else:
-            numerator += (pair.m / 3.0) * (pair.x2 ** 3 - pair.x ** 3) + (pair.c / 2.0) * (pair.x2 ** 2 - pair.x ** 2)
+            numerator += (pair.m / 3.0) * (pair.x2 ** 3 - x ** 3) + (pair.c / 2.0) * (pair.x2 ** 2 - x ** 2)
 
+    # print(numerator)
     for i in range(3):
         numerator += height_of_op_tower[i] * (x_coords[2 * i + 1] - x_coords[i])
 
     for i in range(3):
-        denominator += height_of_op_tower[i] * ((x_coords[2 * i + 1] - x_coords[i]) + base_diff) / 2.0
+        denominator +=( height_of_op_tower[i] * ((x_coords[2 * i + 1] - x_coords[i]) + base_diff) )/ 2.0
 
+    print("{} {}".format(numerator,denominator))
     centroid = numerator/denominator
 
     print(centroid)
 
-    if centroid < base[0]:
+    if centroid < base[0] :
         print("Low")
-    elif centroid < base[1]:
+    elif centroid < base[1] :
         print("Moderate")
-    elif centroid < base[2]:
+    else:
         print("High")
 
